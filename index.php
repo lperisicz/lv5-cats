@@ -245,20 +245,20 @@
 
 </html>
 
-<?php
+<?php 
 /* Require the database class file */
-require 'src/database.class.php';
+/*require 'src/database.class.php';
 
 /* Set db variable to connect to the database class */
-$db = new Database();
+//$db = new Database();
 
 /* Execute the connect function in the $db class */
-$db->Connect();
+//$db->Connect();
 
-$db->RunMigrations();
+//$db->RunMigrations();
 //$db->Read('SELECT * FROM cats_l');
 
 //$db->testInsertImage();
-$db->testGetImage();
+//$db->testGetImage();
 
 
