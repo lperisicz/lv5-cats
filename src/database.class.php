@@ -1,4 +1,5 @@
 <?php
+require 'models/cat.class.php';
 
 class Database
 {
@@ -56,7 +57,7 @@ class Database
     public function Delete($id)
     {
         /* Delete Query */
-        $query = "DELETE FROM feedback WHERE id=" . $id;
+        $query = "DELETE FROM cat_fighters WHERE id=" . $id;
         /* Execute query, if it's completed, output that record is deleted else the error. */
         if ($this->connectionString->query($query) == TRUE) {
             echo "Record Deleted" . "<br>";
@@ -73,9 +74,14 @@ class Database
     public function RunMigrations()
     {
         $sqlList = [
-            'CREATE TABLE IF NOT EXISTS cats_lu (
+            'CREATE TABLE IF NOT EXISTS cat_fighters (
             id serial PRIMARY KEY,
-            img text
+            img text,
+            name text,
+            age integer,
+            catInfo text,
+            wins integer,
+            loss integer
          );'
         ];
 
@@ -85,7 +91,8 @@ class Database
         }
     }
 
-    public function insertImage($image) {
+    public function insertImage($image)
+    {
         $query = "INSERT INTO cats_lu (img) Values('$image')";
         $this->Create($query);
     }
@@ -103,13 +110,67 @@ class Database
 
         $result = $this->connectionString->query($query);
 
+        //$cats;
         while ($row = $result->fetch()) {
-           /* ob_start();
+            /* ob_start();
             fpassthru($row['img']);
             $dat = ob_get_contents();
             ob_end_clean();
             $dat = "data:image/*;base64," . base64_encode($dat);*/
             echo "<img src='" . $row['img'] . "'/>";
+            //cats.push(new Cat(row))
+        }
+    }
+
+    public function insertCat($cat)
+    {
+        $query = "INSERT INTO cat_fighters (img, name, age, catInfo, wins, loss) Values(
+            '$cat->img',
+            '$cat->name',
+            '$cat->age',
+            '$cat->catInfo',
+            '$cat->wins',
+            '$cat->loss'
+        )";
+        if ($this->connectionString->query($query) == TRUE) {
+            echo "Data Inserted." . "<br>";
+        } else {
+            echo "Error: " . $query . "<br>" . $this->connectionString->error;
+        }
+    }
+    public function fetchCats()
+    {
+        $query = "SELECT * FROM cat_fighters";
+        $result = $this->connectionString->query($query);
+        $catsArray = [];
+        while ($row = $result->fetch()) {
+            echo $row['age'];
+            array_push($catsArray, Cat::createCatWithId(
+                $row['id'],
+                $row['img'],
+                $row['name'],
+                $row['age'],
+                $row['catinfo'],
+                $row['wins'],
+                $row['loss'],
+            ));
+        }
+        return $catsArray;
+    }
+
+    public function fetchCat($catId) {
+        $query = "SELECT * FROM cat_fighters WHERE id = $catId LIMIT 1";
+        $result = $this->connectionString->query($query);
+        while ($row = $result->fetch()) {
+            return Cat::createCatWithId(
+                $row['id'],
+                $row['img'],
+                $row['name'],
+                $row['age'],
+                $row['catinfo'],
+                $row['wins'],
+                $row['loss'],
+            );
         }
     }
 }

@@ -1,3 +1,46 @@
+<?php
+/* Require the database class file */
+require 'src/database.class.php';
+
+/* Set db variable to connect to the database class */
+$db = new Database();
+
+/* Execute the connect function in the $db class */
+$db->Connect();
+
+$db->RunMigrations();
+//$db->Read('SELECT * FROM cats_l');
+
+//$db->testInsertImage();
+//$db->testGetImage();
+$cats = $db->fetchCats();
+
+function showCats($catsArr)
+{
+    foreach ($catsArr as $cat) {
+?>
+        <div class="col-md-4 mb-1">
+            <div class="fighter-box" data-info='{
+                                "id": <?php echo $cat->id ?>,
+                                "name": "<?php echo $cat->name ?>" ,
+                                "age" : <?php echo $cat->age ?>,
+                                "catInfo": "<?php echo $cat->catInfo ?>",
+                                "record" : {
+                                    "wins":  <?php echo $cat->wins ?>,
+                                    "loss": <?php echo $cat->loss ?>
+                                }
+                            }'>
+                <img src="<?php echo $cat->img ?>" width="150" height="150">
+                <a href="src/actions/update.php?id=<?php echo $cat->id ?>" class="btn btn-sm btn-light edit-btn cat-form">Edit</a>
+                <a href="src/actions/delete.php?id=<?php echo $cat->id ?>" class="btn btn-sm btn-danger delete-btn cat-form">Delete</a>
+            </div>
+        </div>
+<?php
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,90 +76,7 @@
                 </div>
                 <div class="col-auto w-100" style="margin-top: 24px">
                     <div class="row fighter-list">
-                        <div class="col-md-4 mb-1">
-                            <div class="fighter-box" data-info='{
-                                "id": 1,
-                                "name": "Cat McTerror" ,
-                                "age" : 3,
-                                "catInfo": "Very loud",
-                                "record" : {
-                                    "wins":  22,
-                                    "loss": 4
-                                }
-                            }'>
-                                <img src="./img/cat1.png" alt="Figter Box 1" width="150" height="150">
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-1">
-                            <div class="fighter-box" data-info='{
-                                "id": 2,
-                                "name": "Caterson CatSpyder Silva" ,
-                                "age" : 5,
-                                "catInfo": "Slim, broke leg in past years",
-                                "record" : {
-                                    "wins":  34,
-                                    "loss": 10
-                                }
-                            }'>
-                                <img src="./img/cat02.png" alt="Figter Box 2" width="150" height="150">
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-1">
-                            <div class="fighter-box" data-info='{
-                                "id": 3,
-                                "name": "Firko Cro Cat" ,
-                                "age" : 5,
-                                "catInfo": "Past his prime, doing seminars",
-                                "record" : {
-                                    "wins":  38,
-                                    "loss": 11
-                                }
-                            }'>
-                                <img src="./img/cat03.png" alt="Figter Box 3" width="150" height="150">
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-1">
-                            <div class="fighter-box" data-info='{
-                                "id": 4,
-                                "name": "Catbib Furwmagomedov" ,
-                                "age" : 2.5,
-                                "catInfo": "Current champion, wrestle and catmbo is his style",
-                                "record" : {
-                                    "wins":  28,
-                                    "loss": 0
-                                }
-                            }'>
-                                <img src="./img/cat04.png" alt="Figter Box 4" width="150" height="150">
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-1">
-                            <div class="fighter-box" data-info='{
-                                "id": 5,
-                                "name": "Kit Kitty Kones" ,
-                                "age" : 3,
-                                "catInfo": "Bad kitty, loves to use dog food better strength",
-                                "record" : {
-                                    "wins":  26,
-                                    "loss": 1
-                                }
-                            }'>
-                                <img src="./img/cat05.png" alt="Figter Box 5" width="150" height="150">
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-1">
-                            <div class="fighter-box" data-info='{
-                                "id": 6,
-                                "name": "Coy BigCat Meowson" ,
-                                "age" : 5,
-                                "catInfo": "Big kitty, loves to fight",
-                                "record" : {
-                                    "wins":  23,
-                                    "loss": 18
-                                }
-                            }'>
-                                <img src="./img/cat06.png" alt="Figter Box 6" width="150" height="150">
-                            </div>
-                        </div>
+                        <?php showCats($cats) ?>
                     </div>
                 </div>
             </div>
@@ -141,97 +101,16 @@
                 </div>
                 <div class="col-auto w-100" style="margin-top: 24px">
                     <div class="row fighter-list">
-                        <div class="col-md-4 mb-1">
-                            <div class="fighter-box" data-info='{
-                                "id": 1,
-                                "name": "Cat McTerror" ,
-                                "age" : 3,
-                                "catInfo": "Very loud",
-                                "record" : {
-                                    "wins":  22,
-                                    "loss": 4
-                                }
-                            }'>
-                                <img src="./img/cat1.png" alt="Figter Box 1" width="150" height="150">
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-1">
-                            <div class="fighter-box" data-info='{
-                                "id": 2,
-                                "name": "Caterson CatSpyder Silva" ,
-                                "age" : 5,
-                                "catInfo": "Slim, broke leg in past years",
-                                "record" : {
-                                    "wins":  34,
-                                    "loss": 10
-                                }
-                            }'>
-                                <img src="./img/cat02.png" alt="Figter Box 2" width="150" height="150">
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-1">
-                            <div class="fighter-box" data-info='{
-                                "id": 3,
-                                "name": "Firko Cro Cat" ,
-                                "age" : 5,
-                                "catInfo": "Past his prime, doing seminars",
-                                "record" : {
-                                    "wins":  38,
-                                    "loss": 11
-                                }
-                            }'>
-                                <img src="./img/cat03.png" alt="Figter Box 3" width="150" height="150">
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-1">
-                            <div class="fighter-box" data-info='{
-                                "id": 4,
-                                "name": "Catbib Furwmagomedov" ,
-                                "age" : 2.5,
-                                "catInfo": "Current champion, wrestle and catmbo",
-                                "record" : {
-                                    "wins":  28,
-                                    "loss": 0
-                                }
-                            }'>
-                                <img src="./img/cat04.png" alt="Figter Box 4" width="150" height="150">
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-1">
-                            <div class="fighter-box" data-info='{
-                                "id": 5,
-                                "name": "Kit Kitty Kones" ,
-                                "age" : 3,
-                                "catInfo": "Bad kitty, loves to use dog food better strength",
-                                "record" : {
-                                    "wins":  26,
-                                    "loss": 1
-                                }
-                            }'>
-                                <img src="./img/cat05.png" alt="Figter Box 5" width="150" height="150">
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-1">
-                            <div class="fighter-box" data-info='{
-                                "id": 6,
-                                "name": "Roy BigCat Meowson" ,
-                                "age" : 5,
-                                "catInfo": "Big kitty, loves to fight",
-                                "record" : {
-                                    "wins":  23,
-                                    "loss": 18
-                                }
-                            }'>
-                                <img src="./img/cat06.png" alt="Figter Box 6" width="150" height="150">
-                            </div>
-                        </div>
+                        <?php showCats($cats) ?>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="container d-flex flex-column  align-items-center mt-5">
-        <button class="btn btn-lg btn-danger">Add new fighter</button>
+        <a href="src/actions/add.php">
+            <button class="btn btn-lg btn-danger">Add new fighter</button>
+        </a>
     </div>
 
     <div class="row">
@@ -240,25 +119,7 @@
             <input type="submit" value="Upload Image" name="submit">
         </form>
     </div>
-    <script src="./src/app.js"></script>
+    <!--script src="./src/app.js"></script>
 </body>
 
 </html>
-
-<?php 
-/* Require the database class file */
-/*require 'src/database.class.php';
-
-/* Set db variable to connect to the database class */
-//$db = new Database();
-
-/* Execute the connect function in the $db class */
-//$db->Connect();
-
-//$db->RunMigrations();
-//$db->Read('SELECT * FROM cats_l');
-
-//$db->testInsertImage();
-//$db->testGetImage();
-
-
