@@ -1,9 +1,6 @@
 <?php
-//require_once '../../index.php';
-
 $id = $_GET['id'];
 $cat = $db->fetchCat($id);
-
 ?>
 
 
@@ -21,7 +18,7 @@ $cat = $db->fetchCat($id);
     <form method="POST" action="upload.php" enctype="multipart/form-data">
         <div>
             <label style="width:100px">Name</label>
-            <input type="text" id="addName" name="addName" required value="test">
+            <input type="text" id="addName" name="addName" required>
         </div>
         <label style="width:100px">Age</label>
         <input type="number" id="addAge" name="addAge" required>
@@ -41,20 +38,3 @@ $cat = $db->fetchCat($id);
         </div>
     </form>
 </body>
-
-
-
-
-<?php
-
-
-/*
-$image = $_POST['img'];
-$name = $_POST['addName'];
-$age = $_POST['addAge'];
-$catInfo = $_POST['addInfo'];
-$catWins = $_POST['addWins'];
-$catLoss = $_POST['addLoss'];
-
-$db->Delete($id);*/
-?>

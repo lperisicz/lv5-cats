@@ -37,15 +37,15 @@ class Game {
 
     _attachListeners() {
         this.left.forEach(element => {
-            element.style.pointerEvents = "auto";
-            element.addEventListener("click", e => {
+            element.children[0].style.pointerEvents = "auto";
+            element.children[0].addEventListener("click", e => {
                 e.preventDefault();
                 this._onLeftItemCLick(element);
             });
         });
         this.right.forEach(element => {
-            element.style.pointerEvents = "auto";
-            element.addEventListener("click", e => {
+            element.children[0].style.pointerEvents = "auto";
+            element.children[0].addEventListener("click", e => {
                 e.preventDefault();
                 this._onRightItemCLick(element);
             });
@@ -95,11 +95,11 @@ class Game {
         }
         this._setupUi();
         this.left.forEach(element => {
-            element.style.pointerEvents = "none";
+            element.children[0].style.pointerEvents = "none";
             element.children[0].style.opacity = 0.4;
         });
         this.right.forEach(element => {
-            element.style.pointerEvents = "none";
+            element.children[0].style.pointerEvents = "none";
             element.children[0].style.opacity = 0.4;
         });
         this.fightButton.disabled = true;
@@ -230,11 +230,11 @@ class Game {
             let data = JSON.parse(element.dataset.info);
             let same = selectedData.id == data.id;
             if (same) {
-                element.style.pointerEvents = "none";
+                element.children[0].style.pointerEvents = "none";
                 element.children[0].style.opacity = 0.4;
 
             } else {
-                element.style.pointerEvents = "auto";
+                element.children[0].style.pointerEvents = "auto";
                 element.children[0].style.opacity = 1;
             }
         });

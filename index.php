@@ -1,18 +1,10 @@
 <?php
-/* Require the database class file */
 require 'src/database.class.php';
 
-/* Set db variable to connect to the database class */
 $db = new Database();
-
-/* Execute the connect function in the $db class */
 $db->Connect();
 
 $db->RunMigrations();
-//$db->Read('SELECT * FROM cats_l');
-
-//$db->testInsertImage();
-//$db->testGetImage();
 $cats = $db->fetchCats();
 
 function showCats($catsArr)
@@ -72,7 +64,7 @@ function showCats($catsArr)
                     </ul>
                 </div>
                 <div class="col-auto featured-cat-fighter">
-                    <img class="featured-cat-fighter-image img-rounded" src="https://via.placeholder.com/300" alt="Featured cat fighter">
+                    <img class="featured-cat-fighter-image img-rounded" src="https://via.placeholder.com/300" alt="Featured cat fighter" width="300" height="300">
                 </div>
                 <div class="col-auto w-100" style="margin-top: 24px">
                     <div class="row fighter-list">
@@ -89,7 +81,7 @@ function showCats($catsArr)
         <div id="secondSide" class="container d-flex flex-column align-items-center side second-side col-5">
             <div class="row">
                 <div class="col-auto featured-cat-fighter">
-                    <img class="featured-cat-fighter-image img-rounded" src="https://via.placeholder.com/300" alt="Featured cat fighter">
+                    <img class="featured-cat-fighter-image img-rounded" src="https://via.placeholder.com/300" alt="Featured cat fighter"  width="300" height="300">
                 </div>
                 <div class="col-auto">
                     <ul class="cat-info list-group">
@@ -112,14 +104,7 @@ function showCats($catsArr)
             <button class="btn btn-lg btn-danger">Add new fighter</button>
         </a>
     </div>
-
-    <div class="row">
-        <form action="src/actions/upload.php" method="post" enctype="multipart/form-data">
-            <input type="file" name="fileToUpload" id="fileToUpload">
-            <input type="submit" value="Upload Image" name="submit">
-        </form>
-    </div>
-    <!--script src="./src/app.js"></script>
+    <script src="./src/app.js"></script>
 </body>
 
 </html>
